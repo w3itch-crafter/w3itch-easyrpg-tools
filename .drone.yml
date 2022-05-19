@@ -12,7 +12,7 @@ steps:
     commands:
       - git clone https://github.com/EasyRPG/Tools.git
   - name: build-gencache
-    image: gcc
+    image: ubuntu:20.04
     commands:
       - cd ./Tools/gencache
       - ./bootstrap # only needed if using a git checkout
@@ -20,6 +20,6 @@ steps:
       - make
 ---
 kind: signature
-hmac: 562eb27866ba55370f146b7dd23d5ed47c4b18ba45089eb2eb73348d30b1721c
+hmac: f877a36063d96b4656b010807e89547a329250c4a25aa1775b12cef5b0b20a01
 
 ...
