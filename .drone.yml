@@ -14,12 +14,12 @@ steps:
   - name: build-gencache
     image: gcc
     commands:
-      - cd ./gencache
+      - cd ./Tools/gencache
       - ./bootstrap # only needed if using a git checkout
       - ./configure
       - make
 ---
 kind: signature
-hmac: 7bb99139cfbbb07dc8fb017fce743e537d05e5dccaa60682636114d1938e0da0
+hmac: 562eb27866ba55370f146b7dd23d5ed47c4b18ba45089eb2eb73348d30b1721c
 
 ...
