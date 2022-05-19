@@ -20,6 +20,9 @@ steps:
       - ./bootstrap # only needed if using a git checkout
       - ./configure
       - make
+      - chmod +x ./gencache
+      - mv /var/easyrpg/gencache/bin/gencache /var/easyrpg/gencache/bin-bak/
+      - cp ./gencache /var/easyrpg/gencache/bin/
 trigger:
   branch:
     - main
@@ -28,6 +31,6 @@ trigger:
 
 ---
 kind: signature
-hmac: b90013711027567da409595948f7df2402ae172a8c87a94394b24b2ddf8ec165
+hmac: 9bf4bcd3d9d59ca279bc861e76f4a8902ca8bc6cd197cebe60b61b3a15907c4f
 
 ...
