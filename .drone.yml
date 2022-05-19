@@ -14,14 +14,13 @@ steps:
   - name: build-gencache
     image: ubuntu:20.04
     commands:
-      - sudo apt update
-      - sudo apt install build-essential
+      - apt install build-essential
       - cd ./Tools/gencache
       - ./bootstrap # only needed if using a git checkout
       - ./configure
       - make
 ---
 kind: signature
-hmac: f7146c9dbbd3cd62e660e29ad67673fee9a93c124384a08ed7976ca104872e51
+hmac: 921054b034767f499db491436a9a9c0edde749e78e019058b6a57bbed2a1eb9e
 
 ...
