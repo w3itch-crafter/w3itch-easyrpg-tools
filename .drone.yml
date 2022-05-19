@@ -1,0 +1,25 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+clone:
+  disable: true
+
+steps:
+  - name: clone
+    image: alpine/git
+    commands:
+      - git clone https://github.com/EasyRPG/Tools.git
+  - name: build-gencache
+    image: gcc
+    commands:
+      - cd ./gencache
+      - ./bootstrap # only needed if using a git checkout
+      - ./configure
+      - make
+---
+kind: signature
+hmac: 7bb99139cfbbb07dc8fb017fce743e537d05e5dccaa60682636114d1938e0da0
+
+...
