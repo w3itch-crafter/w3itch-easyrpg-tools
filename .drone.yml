@@ -14,13 +14,14 @@ steps:
   - name: build-gencache
     image: ubuntu:20.04
     commands:
-      - apt install build-essential
+      - apt-get install nlohmann-json3-dev
+      - apt-get install libicu-dev
       - cd ./Tools/gencache
       - ./bootstrap # only needed if using a git checkout
       - ./configure
       - make
 ---
 kind: signature
-hmac: 921054b034767f499db491436a9a9c0edde749e78e019058b6a57bbed2a1eb9e
+hmac: c0582470acf5e5620b02150d12bce5d1ec7f047fa8fb928d79f3809fd6230760
 
 ...
