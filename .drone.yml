@@ -1,27 +1,32 @@
 ---
 kind: pipeline
-type: docker
-name: default
+type: ssh
+name: promotion-testing
 
 clone:
   disable: true
 
+server:
+  host: api.w3itch.io
+  user: w3itch
+  ssh_key:
+    from_secret: SSH_ID_RSA
+
 steps:
-  - name: clone
-    image: alpine/git
+  - name: build-gencache
     commands:
       - git clone https://github.com/EasyRPG/Tools.git
-  - name: build-gencache
-    image: ubuntu:20.04
-    commands:
-      - apt-get install nlohmann-json3-dev
-      - apt-get install libicu-dev
       - cd ./Tools/gencache
       - ./bootstrap # only needed if using a git checkout
       - ./configure
       - make
+trigger:
+  event:
+    - promote
+  target:
+    - testing
 ---
 kind: signature
-hmac: c0582470acf5e5620b02150d12bce5d1ec7f047fa8fb928d79f3809fd6230760
+hmac: d79f450e58a15d89c6976b00eed859fe033da4e1297cf980466462ac6175029f
 
 ...
