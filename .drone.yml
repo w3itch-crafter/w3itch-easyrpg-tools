@@ -1,7 +1,38 @@
 ---
 kind: pipeline
 type: ssh
-name: ssh-deploy-prod
+name: ssh-deploy-testing
+
+clone:
+  disable: true
+
+server:
+  host: api.w3itch.io
+  user: w3itch
+  ssh_key:
+    from_secret: SSH_ID_RSA
+
+steps:
+  - name: build-gencache
+    commands:
+      - git clone https://github.com/EasyRPG/Tools.git
+      - cd ./Tools/gencache
+      - ./bootstrap # only needed if using a git checkout
+      - ./configure
+      - make
+      - chmod +x ./gencache
+      - mv /var/easyrpg/testing/gencache/bin/gencache /var/easyrpg/testing/gencache/bin-bak/
+      - cp ./gencache /var/easyrpg/testing/gencache/bin/
+trigger:
+  branch:
+    - main
+  event:
+    - push
+
+---
+kind: pipeline
+type: ssh
+name: promotion-prod
 
 clone:
   disable: true
@@ -24,13 +55,13 @@ steps:
       - mv /var/easyrpg/gencache/bin/gencache /var/easyrpg/gencache/bin-bak/
       - cp ./gencache /var/easyrpg/gencache/bin/
 trigger:
-  branch:
-    - main
   event:
-    - push
+    - promote
+  target:
+    - production
 
 ---
 kind: signature
-hmac: 9bf4bcd3d9d59ca279bc861e76f4a8902ca8bc6cd197cebe60b61b3a15907c4f
+hmac: 2f18c5221b1420d42b9604bc083ae7f830b33f09f3d4e9a288a22d79200c8417
 
 ...
