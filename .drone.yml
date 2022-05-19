@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: ssh
-name: promotion-testing
+name: ssh-deploy-prod
 
 clone:
   disable: true
@@ -21,12 +21,13 @@ steps:
       - ./configure
       - make
 trigger:
+  branch:
+    - main
   event:
-    - promote
-  target:
-    - testing
+    - push
+
 ---
 kind: signature
-hmac: d79f450e58a15d89c6976b00eed859fe033da4e1297cf980466462ac6175029f
+hmac: b90013711027567da409595948f7df2402ae172a8c87a94394b24b2ddf8ec165
 
 ...
